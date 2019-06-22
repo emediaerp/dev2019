@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_book_product_series_user,book.product.series.user,model_book_product_series,base.group_user,1,0,0,0
+access_book_product_series_officer,book.product.series.officer,model_book_product_series,purchase.group_purchase_user,1,1,1,1
+access_book_product_type_user,book.product.type.user,model_book_product_type,base.group_user,1,0,0,0
+access_book_product_type_officer,book.product.type.officer,model_book_product_type,purchase.group_purchase_user,1,1,1,1
+access_book_product_contractor_user,book.product.contractor.user,model_book_product_contractor,base.group_user,1,0,0,0
+access_book_product_contractor_officer,book.product.contractor.officer,model_book_product_contractor,purchase.group_purchase_user,1,1,1,1
+access_book_product_distributor_user,book.product.distributor.user,model_book_product_distributor,base.group_user,1,0,0,0
+access_book_product_distributor_officer,book.product.distributor.officer,model_book_product_distributor,purchase.group_purchase_user,1,1,1,1
+access_book_product_distributor_legal,book.product.distributor.legal,model_book_product_distributor,book_product.group_purchase_legal,1,1,1,1
+access_book_product_subject_user,book.product.subject.user,model_book_product_subject,base.group_user,1,0,0,0
+access_book_product_subject_officer,book.product.subject.officer,model_book_product_subject,purchase.group_purchase_user,1,1,1,1
+access_book_product_author_user,book.product.author.user,model_book_product_author,base.group_user,1,0,0,0
+access_book_product_author_officer,book.product.author.officer,model_book_product_author,purchase.group_purchase_user,1,1,1,1

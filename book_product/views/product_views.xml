@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="product.product_template_only_form_view" model="ir.ui.view">
+            <field name="name">product.template.product.form</field>
+            <field name="model">product.template</field>
+            <field name="mode">primary</field>
+            <field name="priority" eval="8"/>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="name">Product Template</attribute>
+                </xpath>
+                <field name="type" position="after">
+                    <field name="default_code" attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
+                    <field name="barcode" attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
+                </field>
+                <button name="toggle_active" position="before">
+                    <button name="%(product.product_variant_action)d" type="action"
+                            icon="fa-sitemap" class="oe_stat_button"
+                            attrs="{'invisible': [('product_variant_count', '&lt;=', 1)]}"
+                            groups="product.group_product_variant">
+                        <field string="Variants" name="product_variant_count" widget="statinfo"/>
+                    </button>
+                </button>
+                <xpath expr="//page[@name='general_information']" position="after">
+                    <page name="variants" string="Variants" groups="product.group_product_variant">
+                        <field name="attribute_line_ids" widget="one2many_list" context="{'show_attribute': False}">
+                            <tree string="Variants" editable="bottom">
+                                <field name="attribute_id"/>
+                                <field name="value_ids" widget="many2many_tags" options="{'no_create_edit': True}"
+                                       domain="[('attribute_id', '=', attribute_id)]"
+                                       context="{'default_attribute_id': attribute_id}"/>
+                            </tree>
+                        </field>
+                        <p class="oe_grey">
+                            <strong>Warning</strong>: adding or deleting attributes
+                            will delete and recreate existing variants and lead
+                            to the loss of their possible customizations.
+                        </p>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="inherit_product_template_form_view" model="ir.ui.view">
+            <field name="name">product.template.common.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='categ_id']" position="replace"/>
+                <xpath expr="//page[@name='general_information']" position="before">
+                    <field name="book_specialized" invisible="True"/>
+                    <page string="Classification" attrs="{'invisible':[('book_specialized','!=',True)]}">
+                        <group>
+                            <group string="Basic Information">
+                                <field name="publisher_id" widget="res_partner_many2one"
+                                       context="{'search_default_publisher':1, 'default_publisher':1,'default_supplier':0, 'default_customer':0, 'show_vat': True}"
+                                       domain="[('publisher','=',True)]" groups="purchase.group_purchase_user"/>
+                                <field name="categ_id" required="True" string="Product Category"/>
+                                <field name="series_id"/>
+                                <field name="type_id"/>
+                                <field name="exclusive"/>
+                            </group>
+                            <group string="Extended Information">
+                                <field name="teacher_resources"/>
+                                <field name="subject_id" attrs="{'invisible':[('teacher_resources','!=',True)]}"/>
+                                <field name="author_id" attrs="{'invisible':[('teacher_resources','!=',True)]}"/>
+                                <field name="language_id" attrs="{'invisible':[('teacher_resources','!=',True)]}"
+                                       options="{'no_create': True}"/>
+                                <field name="country_ids" attrs="{'invisible':[('teacher_resources','!=',True)]}"
+                                       options="{'no_create': True}" widget="many2many_tags"/>
+                            </group>
+                            <group string="Book Royalty">
+                                <field name="royalty"/>
+                                <field name="contractor_id" attrs="{'invisible':[('royalty','!=',True)]}"
+                                       groups="book_product.group_purchase_legal"
+                                       help="The company which done the contract with the original"/>
+                                <field name="distributor_id" attrs="{'invisible':[('royalty','!=',True)]}"
+                                       groups="book_product.group_purchase_legal"
+                                       help="The company which has the right to distribute the book"/>
+                                <field name="royalty_percentage" attrs="{'invisible':[('royalty','!=',True)]}"
+                                       groups="book_product.group_purchase_legal"
+                                       help="Royalty Percentage %"/>
+                            </group>
+                            <group string="Flags">
+                                <field name="moe_list" help="Is this title in MOE list"/>
+                                <field name="out_of_print" help="Is this title out of print"/>
+                                <field name="termination" help="Is this title scheduled to be terminated"/>
+                                <field name="clear_stock" help="Needs to make offers and clear stock"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="inherit_product_template_search_view" model="ir.ui.view">
+            <field name="name">product.template.search</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='categ_id']" position="after">
+                    <field name="publisher_id"/>
+                    <field name="series_id"/>
+                    <field name="type_id" string="Book Type"/>
+                    <field name="contractor_id"/>
+                    <field name="distributor_id"/>
+                    <field name="subject_id"/>
+                    <field name="author_id"/>
+                    <field name="language_id"/>
+                </xpath>
+                <xpath expr="//filter[@name='consumable']" position="after">
+                    <filter string="Exclusive" name="exclusive" domain="[('exclusive', '=', True)]"/>
+                    <filter string="Royalty" name="royalty" domain="[('royalty', '=', True)]"/>
+                    <filter string="Teacher Resources" name="teacher_resources"
+                            domain="[('teacher_resources', '=', True)]"/>
+                    <filter string="Title is in MOE List" name="moe_list" domain="[('moe_list', '=', True)]"/>
+                    <filter string="Out of Print" name="out_of_print" domain="[('out_of_print', '=', True)]"/>
+                    <filter string="Termination" name="termination" domain="[('termination', '=', True)]"/>
+                    <filter string="Clear Stock" name="clear_stock" domain="[('clear_stock', '=', True)]"/>
+                </xpath>
+                <xpath expr="//filter[last()]" position="after">
+                    <group string="Group By">
+                        <filter name="group_by_publisher_id" string="Book Publisher"
+                                context="{'group_by': 'publisher_id'}"/>
+                        <filter name="group_by_series_id" string="Book Series" context="{'group_by': 'series_id'}"/>
+                        <filter name="group_by_type_id" string="Book Type" context="{'group_by': 'type_id'}"/>
+                        <filter name="group_by_contractor_id" string="Book Contractor"
+                                context="{'group_by': 'contractor_id'}"/>
+                        <filter name="group_by_distributor_id" string="Book Distributor"
+                                context="{'group_by': 'distributor_id'}"/>
+                        <filter name="group_by_subject_id" string="Book Subject" context="{'group_by': 'subject_id'}"/>
+                        <filter name="group_by_author_id" string="Book Author" context="{'group_by': 'author_id'}"/>
+                        <filter name="group_by_language_id" string="Book Language"
+                                context="{'group_by': 'language_id'}"/>
+
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+        of
+
+
+    </data>
+</odoo>

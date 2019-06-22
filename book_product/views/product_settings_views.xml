@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+
+        <record id="view_book_product_series_form" model="ir.ui.view">
+            <field name="name">book.product.series.form</field>
+            <field name="model">book.product.series</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                       options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Series Name"/>
+                            </h1>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_book_product_type_form" model="ir.ui.view">
+            <field name="name">book.product.type.form</field>
+            <field name="model">book.product.type</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                       options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Type Name"/>
+                            </h1>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_book_product_contractor_form" model="ir.ui.view">
+            <field name="name">book.product.contractor.form</field>
+            <field name="model">book.product.contractor</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                       options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Contractor Name"/>
+                            </h1>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_book_product_distributor_form" model="ir.ui.view">
+            <field name="name">book.product.distributor.form</field>
+            <field name="model">book.product.distributor</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                       options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Distributor Name"/>
+                            </h1>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_book_product_subject_form" model="ir.ui.view">
+            <field name="name">book.product.subject.form</field>
+            <field name="model">book.product.subject</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                       options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Subject Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="parent_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_book_product_author_form" model="ir.ui.view">
+            <field name="name">book.product.author.form</field>
+            <field name="model">book.product.author</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                       options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Author Name"/>
+                            </h1>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_partner_publisher_form" model="ir.actions.act_window">
+            <field name="name">Publishers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('publisher','=',True)]</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="context">{'search_default_publisher': 1,'default_customer': 0,'default_publisher':
+                1,'default_is_company': True}
+            </field>
+            <field name="filter" eval="True"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new publisher in your address book
+                </p>
+                <p>
+                    Odoo helps you easily track all activities related to a publisher.
+                </p>
+            </field>
+        </record>
+
+        <record id="view_book_product_series_action" model="ir.actions.act_window">
+            <field name="name">Book Series</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">book.product.series</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to add new book series
+                </p>
+            </field>
+        </record>
+        <record id="view_book_product_type_action" model="ir.actions.act_window">
+            <field name="name">Book Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">book.product.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to add new book type
+                </p>
+            </field>
+        </record>
+        <record id="view_book_product_contractor_action" model="ir.actions.act_window">
+            <field name="name">Book Contractor</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">book.product.contractor</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to add new book contractor
+                </p>
+            </field>
+        </record>
+        <record id="view_book_product_distributor_action" model="ir.actions.act_window">
+            <field name="name">Book Distributor</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">book.product.distributor</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to add new book distributor
+                </p>
+            </field>
+        </record>
+        <record id="view_book_product_subject_action" model="ir.actions.act_window">
+            <field name="name">Book Subject</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">book.product.subject</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to add new book subject
+                </p>
+            </field>
+        </record>
+        <record id="view_book_product_author_action" model="ir.actions.act_window">
+            <field name="name">Book Author</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">book.product.author</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to add new book author
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                action="action_partner_publisher_form" id="menu_purchase_product_publisher_action"
+                parent="purchase.menu_product_in_config_purchase" sequence="11"/>
+        <menuitem
+                action="view_book_product_series_action" id="menu_book_series_action"
+                parent="purchase.menu_product_in_config_purchase" sequence="12"/>
+        <menuitem
+                action="view_book_product_type_action" id="menu_book_type_action"
+                parent="purchase.menu_product_in_config_purchase" sequence="13"/>
+        <menuitem
+                action="view_book_product_contractor_action" id="menu_book_contractor_action"
+                parent="purchase.menu_product_in_config_purchase" sequence="14"/>
+        <menuitem
+                action="view_book_product_distributor_action" id="menu_book_distributorr_action"
+                parent="purchase.menu_product_in_config_purchase" sequence="15"/>
+        <menuitem
+                action="view_book_product_subject_action" id="menu_book_subject_action"
+                parent="purchase.menu_product_in_config_purchase" sequence="16"/>
+        <menuitem
+                action="view_book_product_author_action" id="menu_book_authorr_action"
+                parent="purchase.menu_product_in_config_purchase" sequence="17"/>
+    </data>
+</odoo>
