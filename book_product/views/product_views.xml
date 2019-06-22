@@ -1,56 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
-
-        <record id="product.product_template_only_form_view" model="ir.ui.view">
-            <field name="name">product.template.product.form</field>
-            <field name="model">product.template</field>
-            <field name="mode">primary</field>
-            <field name="priority" eval="8"/>
-            <field name="inherit_id" ref="product.product_template_form_view"/>
-            <field name="arch" type="xml">
-                <xpath expr="//form" position="attributes">
-                    <attribute name="name">Product Template</attribute>
-                </xpath>
-                <field name="type" position="after">
-                    <field name="default_code" attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
-                    <field name="barcode" attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
-                </field>
-                <button name="toggle_active" position="before">
-                    <button name="%(product.product_variant_action)d" type="action"
-                            icon="fa-sitemap" class="oe_stat_button"
-                            attrs="{'invisible': [('product_variant_count', '&lt;=', 1)]}"
-                            groups="product.group_product_variant">
-                        <field string="Variants" name="product_variant_count" widget="statinfo"/>
-                    </button>
-                </button>
-                <xpath expr="//page[@name='general_information']" position="after">
-                    <page name="variants" string="Variants" groups="product.group_product_variant">
-                        <field name="attribute_line_ids" widget="one2many_list" context="{'show_attribute': False}">
-                            <tree string="Variants" editable="bottom">
-                                <field name="attribute_id"/>
-                                <field name="value_ids" widget="many2many_tags" options="{'no_create_edit': True}"
-                                       domain="[('attribute_id', '=', attribute_id)]"
-                                       context="{'default_attribute_id': attribute_id}"/>
-                            </tree>
-                        </field>
-                        <p class="oe_grey">
-                            <strong>Warning</strong>: adding or deleting attributes
-                            will delete and recreate existing variants and lead
-                            to the loss of their possible customizations.
-                        </p>
-                    </page>
-                </xpath>
-            </field>
-        </record>
-
-
         <record id="inherit_product_template_form_view" model="ir.ui.view">
             <field name="name">product.template.common.form</field>
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='categ_id']" position="replace"/>
                 <xpath expr="//page[@name='general_information']" position="before">
                     <field name="book_specialized" invisible="True"/>
                     <page string="Classification" attrs="{'invisible':[('book_specialized','!=',True)]}">
@@ -59,18 +14,18 @@
                                 <field name="publisher_id" widget="res_partner_many2one"
                                        context="{'search_default_publisher':1, 'default_publisher':1,'default_supplier':0, 'default_customer':0, 'show_vat': True}"
                                        domain="[('publisher','=',True)]" groups="purchase.group_purchase_user"/>
-                                <field name="categ_id" required="True" string="Product Category"/>
+                                <field name="level_id" required="True"/>
                                 <field name="series_id"/>
                                 <field name="type_id"/>
                                 <field name="exclusive"/>
                             </group>
                             <group string="Extended Information">
                                 <field name="teacher_resources"/>
-                                <field name="subject_id" attrs="{'invisible':[('teacher_resources','!=',True)]}"/>
-                                <field name="author_id" attrs="{'invisible':[('teacher_resources','!=',True)]}"/>
-                                <field name="language_id" attrs="{'invisible':[('teacher_resources','!=',True)]}"
+                                <field name="subject_id"/>
+                                <field name="author_id"/>
+                                <field name="language_id"
                                        options="{'no_create': True}"/>
-                                <field name="country_ids" attrs="{'invisible':[('teacher_resources','!=',True)]}"
+                                <field name="country_ids"
                                        options="{'no_create': True}" widget="many2many_tags"/>
                             </group>
                             <group string="Book Royalty">
@@ -137,6 +92,17 @@
                         <filter name="group_by_author_id" string="Book Author" context="{'group_by': 'author_id'}"/>
                         <filter name="group_by_language_id" string="Book Language"
                                 context="{'group_by': 'language_id'}"/>
+
+                        <filter string="Exclusive" name="group_by_exclusive" context="{'group_by': 'exclusive'}"/>
+                        <filter string="Royalty" name="group_by_royalty" context="{'group_by': 'royalty'}"/>
+                        <filter string="Teacher Resources" name="group_by_teacher_resources"
+                                context="{'group_by': 'teacher_resources'}"/>
+                        <filter string="Title is in MOE List" name="group_by_moe_list"
+                                context="{'group_by': 'moe_list'}"/>
+                        <filter string="Out of Print" name="group_by_out_of_print"
+                                context="{'group_by': 'out_of_print'}"/>
+                        <filter string="Termination" name="group_by_termination" context="{'group_by': 'termination'}"/>
+                        <filter string="Clear Stock" name="group_by_clear_stock" context="{'group_by': 'clear_stock'}"/>
 
                     </group>
                 </xpath>

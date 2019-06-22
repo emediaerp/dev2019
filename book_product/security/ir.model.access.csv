@@ -1,4 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_book_product_level_user,book.product.level.user,model_book_product_level,base.group_user,1,0,0,0
+access_book_product_level_officer,book.product.level.officer,model_book_product_level,purchase.group_purchase_user,1,1,1,1
 access_book_product_series_user,book.product.series.user,model_book_product_series,base.group_user,1,0,0,0
 access_book_product_series_officer,book.product.series.officer,model_book_product_series,purchase.group_purchase_user,1,1,1,1
 access_book_product_type_user,book.product.type.user,model_book_product_type,base.group_user,1,0,0,0
@@ -12,3 +14,5 @@ access_book_product_subject_user,book.product.subject.user,model_book_product_su
 access_book_product_subject_officer,book.product.subject.officer,model_book_product_subject,purchase.group_purchase_user,1,1,1,1
 access_book_product_author_user,book.product.author.user,model_book_product_author,base.group_user,1,0,0,0
 access_book_product_author_officer,book.product.author.officer,model_book_product_author,purchase.group_purchase_user,1,1,1,1
+access_book_product_language_user,book.product.language.user,model_book_product_language,base.group_user,1,0,0,0
+access_book_product_language_officer,book.product.language.officer,model_book_product_language,purchase.group_purchase_user,1,1,1,1

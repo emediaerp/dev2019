@@ -18,6 +18,7 @@ class Product(models.Model):
     # Basic Information
     book_specialized = fields.Boolean(string="Book Specialized", related='company_id.book_specialized', store=True)
     publisher_id = fields.Many2one(comodel_name="res.partner", string="Publisher", required=False, )
+    level_id = fields.Many2one(comodel_name="book.product.level", string="Level", required=False, )
     series_id = fields.Many2one(comodel_name="book.product.series", string="Series", required=False, )
     type_id = fields.Many2one(comodel_name="book.product.type", string="Type", required=False, )
     exclusive = fields.Boolean(string="Exclusive")
@@ -29,8 +30,8 @@ class Product(models.Model):
     # Extended Information
     teacher_resources = fields.Boolean(string="Teacher Resources")
     subject_id = fields.Many2one(comodel_name="book.product.subject", string="Subject", required=False, )
-    author_id = fields.Many2one(comodel_name="book.product.author", string="Subject", required=False, )
-    language_id = fields.Many2one(comodel_name="res.lang", string="Language", required=False, )
+    author_id = fields.Many2one(comodel_name="book.product.author", string="Author", required=False, )
+    language_id = fields.Many2one(comodel_name="book.product.language", string="Language", required=False, )
     country_ids = fields.Many2many(comodel_name="res.country", string="Geographic Target", )
     # Flags
     moe_list = fields.Boolean(string="Title is in MOE List")

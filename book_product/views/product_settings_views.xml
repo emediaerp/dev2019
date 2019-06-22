@@ -1,8 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
-
-
+        <record id="view_book_product_level_form" model="ir.ui.view">
+            <field name="name">book.product.level.form</field>
+            <field name="model">book.product.level</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                       options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Level Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="parent_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
         <record id="view_book_product_series_form" model="ir.ui.view">
             <field name="name">book.product.series.form</field>
             <field name="model">book.product.series</field>
@@ -138,6 +161,28 @@
                 </form>
             </field>
         </record>
+        <record id="view_book_product_language_form" model="ir.ui.view">
+            <field name="name">book.product.language.form</field>
+            <field name="model">book.product.language</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                       options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Language Name"/>
+                            </h1>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
         <record id="action_partner_publisher_form" model="ir.actions.act_window">
             <field name="name">Publishers</field>
@@ -160,6 +205,17 @@
             </field>
         </record>
 
+        <record id="view_book_product_level_action" model="ir.actions.act_window">
+            <field name="name">Book Level</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">book.product.series</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to add new book levels
+                </p>
+            </field>
+        </record>
         <record id="view_book_product_series_action" model="ir.actions.act_window">
             <field name="name">Book Series</field>
             <field name="type">ir.actions.act_window</field>
@@ -226,27 +282,44 @@
                 </p>
             </field>
         </record>
+        <record id="view_book_product_language_action" model="ir.actions.act_window">
+            <field name="name">Book Language</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">book.product.language</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to add new book language
+                </p>
+            </field>
+        </record>
 
         <menuitem
                 action="action_partner_publisher_form" id="menu_purchase_product_publisher_action"
                 parent="purchase.menu_product_in_config_purchase" sequence="11"/>
         <menuitem
-                action="view_book_product_series_action" id="menu_book_series_action"
+                action="view_book_product_series_action" id="menu_purchase_product_level_action"
                 parent="purchase.menu_product_in_config_purchase" sequence="12"/>
         <menuitem
-                action="view_book_product_type_action" id="menu_book_type_action"
+                action="view_book_product_series_action" id="menu_book_series_action"
                 parent="purchase.menu_product_in_config_purchase" sequence="13"/>
         <menuitem
-                action="view_book_product_contractor_action" id="menu_book_contractor_action"
+                action="view_book_product_type_action" id="menu_book_type_action"
                 parent="purchase.menu_product_in_config_purchase" sequence="14"/>
         <menuitem
-                action="view_book_product_distributor_action" id="menu_book_distributorr_action"
+                action="view_book_product_contractor_action" id="menu_book_contractor_action"
                 parent="purchase.menu_product_in_config_purchase" sequence="15"/>
         <menuitem
-                action="view_book_product_subject_action" id="menu_book_subject_action"
+                action="view_book_product_distributor_action" id="menu_book_distributorr_action"
                 parent="purchase.menu_product_in_config_purchase" sequence="16"/>
         <menuitem
-                action="view_book_product_author_action" id="menu_book_authorr_action"
+                action="view_book_product_subject_action" id="menu_book_subject_action"
                 parent="purchase.menu_product_in_config_purchase" sequence="17"/>
+        <menuitem
+                action="view_book_product_author_action" id="menu_book_author_action"
+                parent="purchase.menu_product_in_config_purchase" sequence="18"/>
+        <menuitem
+                action="view_book_product_language_action" id="menu_book_language_action"
+                parent="purchase.menu_product_in_config_purchase" sequence="19"/>
     </data>
 </odoo>
