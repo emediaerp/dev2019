@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="product_template_pricing_form_view" model="ir.ui.view">
+            <field name="name">product.template.common.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="book_product.inherit_product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='classification']" position="after">
+                    <field name="book_pricing" invisible="True"/>
+                    <page string="Pricing" name="pricing"
+                          attrs="{'invisible':['|',('is_book','!=',True),('book_pricing','!=',True)]}">
+                        <group>
+                            <group string="Base Price">
+                                <field name="list_price" string="Sales Price" widget='monetary'
+                                       options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                                <label for="standard_price" groups="base.group_user"
+                                       attrs="{'invisible': [('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}"/>
+                                <div name="standard_price_uom" groups="base.group_user"
+                                     attrs="{'invisible': [('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}">
+                                    <field name="standard_price" widget='monetary'
+                                           options="{'currency_field': 'cost_currency_id'}"/>
+                                </div>
+                            </group>
+                            <group string="Extended Price">
+                                <field name="extended_price"/>
+                                <field name="ex_currency_id" help="Purchase currency.\n NOTE: if rates are
+                                                                    not update correctly cost price will not be accurate"
+                                       attrs="{'invisible':[('extended_price','!=',True)],'required':[('extended_price','=',True)]}"/>
+                                <field name="ex_list_price" help="Purchase price without discount"
+                                       attrs="{'invisible':[('extended_price','!=',True)],'required':[('extended_price','=',True)]}"/>
+                                <field name="ex_discount_percentage" help="Purchase discount"
+                                       attrs="{'invisible':[('extended_price','!=',True)],'required':[('extended_price','=',True)]}"/>
+                                <field name="ex_net_price" help="Net price after discount"
+                                       attrs="{'invisible':[('extended_price','!=',True)]}"/>
+                            </group>
+                            <group/>
+                            <group string="Markup &amp; Margin">
+                                <field name="ex_markup_method"
+                                       help="List Price: the list price is multiplied by the mark up
+                                       to compute selling in local currency. Net Price: the net price is
+                                        multiplied by the mark up to compute selling in local currency."
+                                       attrs="{'invisible':[('extended_price','!=',True)],'required':[('extended_price','=',True)]}"/>
+                                <field name="ex_markup" help="Markup Factor"
+                                       attrs="{'invisible':[('extended_price','!=',True)],'required':[('extended_price','=',True)]}"/>
+                                <field name="ex_selling_margin" help="Margin of Profit in percent"
+                                       attrs="{'invisible':[('extended_price','!=',True)]}"/>
+                            </group>
+
+                        </group>
+                        <separator string="Price History"/>
+                        <field name="price_ids">
+                            <tree editable="bottom">
+                                <field name="name" readonly="True"/>
+                                <field name="date" readonly="True"/>
+                                <field name="old_value" readonly="True"/>
+                                <field name="new_value" readonly="True"/>
+                                <field name="user_id" readonly="True"/>
+                            </tree>
+                            <form>
+                                <div class="oe_title">
+                                    <label for="name" class="oe_edit_only"/>
+                                    <h1>
+                                        <field name="name" readonly="True"/>
+                                    </h1>
+                                </div>
+                                <group>
+                                    <group>
+                                        <field name="old_value" readonly="True"/>
+                                        <field name="user_id" readonly="True"/>
+                                    </group>
+                                    <group>
+                                        <field name="new_value" readonly="True"/>
+                                        <field name="date" readonly="True"/>
+                                    </group>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
