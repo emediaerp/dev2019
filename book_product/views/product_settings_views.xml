@@ -184,6 +184,21 @@
             </field>
         </record>
 
+        <record id="inherit_view_partner_publisher_form" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//page[@name='sales_purchases']//group[@name='sale']" position="after">
+                    <group string="Publisher" name="publisher" priority="2">
+                        <field name="publisher"/>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+
         <record id="action_partner_publisher_form" model="ir.actions.act_window">
             <field name="name">Publishers</field>
             <field name="type">ir.actions.act_window</field>
@@ -191,8 +206,8 @@
             <field name="view_type">form</field>
             <field name="domain">[('publisher','=',True)]</field>
             <field name="view_mode">kanban,tree,form</field>
-            <field name="context">{'search_default_publisher': 1,'default_customer': 0,'default_publisher':
-                1,'default_is_company': True}
+            <field name="context">{'search_default_publisher': 1,'default_customer': 0,'default_supplier':
+                0,'default_publisher':1,'default_is_company': True}
             </field>
             <field name="filter" eval="True"/>
             <field name="help" type="html">
@@ -293,33 +308,35 @@
                 </p>
             </field>
         </record>
+        <menuitem id="menu_book_config" name="Book Configuration" parent="purchase.menu_purchase_root" sequence="99"
+                  groups="purchase.group_purchase_user"/>
 
         <menuitem
                 action="action_partner_publisher_form" id="menu_purchase_product_publisher_action"
-                parent="purchase.menu_product_in_config_purchase" sequence="11"/>
+                parent="menu_book_config" sequence="11"/>
         <menuitem
                 action="view_book_product_series_action" id="menu_purchase_product_level_action"
-                parent="purchase.menu_product_in_config_purchase" sequence="12"/>
+                parent="menu_book_config" sequence="12"/>
         <menuitem
                 action="view_book_product_series_action" id="menu_book_series_action"
-                parent="purchase.menu_product_in_config_purchase" sequence="13"/>
+                parent="menu_book_config" sequence="13"/>
         <menuitem
                 action="view_book_product_type_action" id="menu_book_type_action"
-                parent="purchase.menu_product_in_config_purchase" sequence="14"/>
+                parent="menu_book_config" sequence="14"/>
         <menuitem
                 action="view_book_product_contractor_action" id="menu_book_contractor_action"
-                parent="purchase.menu_product_in_config_purchase" sequence="15"/>
+                parent="menu_book_config" sequence="15"/>
         <menuitem
                 action="view_book_product_distributor_action" id="menu_book_distributorr_action"
-                parent="purchase.menu_product_in_config_purchase" sequence="16"/>
+                parent="menu_book_config" sequence="16"/>
         <menuitem
                 action="view_book_product_subject_action" id="menu_book_subject_action"
-                parent="purchase.menu_product_in_config_purchase" sequence="17"/>
+                parent="menu_book_config" sequence="17"/>
         <menuitem
                 action="view_book_product_author_action" id="menu_book_author_action"
-                parent="purchase.menu_product_in_config_purchase" sequence="18"/>
+                parent="menu_book_config" sequence="18"/>
         <menuitem
                 action="view_book_product_language_action" id="menu_book_language_action"
-                parent="purchase.menu_product_in_config_purchase" sequence="19"/>
+                parent="menu_book_config" sequence="19"/>
     </data>
 </odoo>

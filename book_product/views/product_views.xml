@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='general_information']" position="before">
                     <field name="book_specialized" invisible="True"/>
-                    <page string="Classification" attrs="{'invisible':[('book_specialized','!=',True)]}">
+                    <page string="Classification" name="classification" attrs="{'invisible':[('book_specialized','!=',True)]}">
                         <group>
                             <group string="Basic Information">
                                 <field name="publisher_id" widget="res_partner_many2one"
@@ -109,8 +109,5 @@
 
             </field>
         </record>
-        of
-
-
     </data>
 </odoo>

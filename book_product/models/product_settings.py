@@ -8,7 +8,7 @@ class Partner(models.Model):
     _name = 'res.partner'
     _inherit = 'res.partner'
 
-    publisher = fields.Boolean(string="Publisher")
+    publisher = fields.Boolean(string="Is a Publisher")
 
 
 class Level(models.Model):
