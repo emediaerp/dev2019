@@ -17,6 +17,7 @@ class Product(models.Model):
 
     # Basic Information
     book_specialized = fields.Boolean(string="Book Specialized", related='company_id.book_specialized', store=True)
+    is_book = fields.Boolean(string="Is a Book",  )
     publisher_id = fields.Many2one(comodel_name="res.partner", string="Publisher", required=False, )
     level_id = fields.Many2one(comodel_name="book.product.level", string="Level", required=False, )
     series_id = fields.Many2one(comodel_name="book.product.series", string="Series", required=False, )

@@ -9,7 +9,7 @@
  'website': "https://www.linkedin.com/in/mahmoudelmenshawy/",
  'category': 'HR',
  'version': '0.1',
- 'depends': ['purchase','sale_management'],
+ 'depends': ['book_product'],
  'data': [
      'views/company_views.xml',
      'views/product_views.xml',

@@ -6,30 +6,39 @@
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//page[@name='general_information']" position="before">
+                <xpath expr="//div[@class='oe_title']//div[@name='options']//div[last()]" position="after">
                     <field name="book_specialized" invisible="True"/>
-                    <page string="Classification" name="classification" attrs="{'invisible':[('book_specialized','!=',True)]}">
+                    <div attrs="{'invisible':[('book_specialized','!=',True)]}">
+                        <field name="is_book"/>
+                        <label for="is_book"/>
+                    </div>
+                </xpath>
+                <xpath expr="//page[@name='general_information']" position="before">
+                    <page string="Classification" name="classification"
+                          attrs="{'invisible':['|',('is_book','!=',True),('book_specialized','!=',True)]}">
                         <group>
                             <group string="Basic Information">
+                                <field name="barcode" string="ISBN" help="ISBN 13 code"/>
+                                <field name="default_code" string="Old ISBN" help="ISBN 10 code"/>
                                 <field name="publisher_id" widget="res_partner_many2one"
                                        context="{'search_default_publisher':1, 'default_publisher':1,'default_supplier':0, 'default_customer':0, 'show_vat': True}"
-                                       domain="[('publisher','=',True)]" groups="purchase.group_purchase_user"/>
-                                <field name="level_id" required="True"/>
-                                <field name="series_id"/>
-                                <field name="type_id"/>
-                                <field name="exclusive"/>
+                                       domain="[('publisher','=',True)]" groups="purchase.group_purchase_user"
+                                       help="The book Publisher, A publisher is a partner with category 'Publisher' "/>
+                                <field name="level_id" help="Target Level"/>
+                                <field name="series_id" help="If the book is a part of a series"/>
+                                <field name="type_id" help="Type of product, you can add more types"/>
+                                <field name="exclusive" help="Is this title exclusive to your company"/>
                             </group>
                             <group string="Extended Information">
-                                <field name="teacher_resources"/>
-                                <field name="subject_id"/>
-                                <field name="author_id"/>
-                                <field name="language_id"
-                                       options="{'no_create': True}"/>
-                                <field name="country_ids"
-                                       options="{'no_create': True}" widget="many2many_tags"/>
+                                <field name="teacher_resources" help="Is this title intended for teachers"/>
+                                <field name="subject_id" help="Subject and sub subject"/>
+                                <field name="author_id" help="Author of the book"/>
+                                <field name="language_id" options="{'no_create': True}" help="Language of the book"/>
+                                <field name="country_ids" options="{'no_create': True}" widget="many2many_tags"
+                                       help="Target Countries"/>
                             </group>
                             <group string="Book Royalty">
-                                <field name="royalty"/>
+                                <field name="royalty" help="Is this item a royality item or not"/>
                                 <field name="contractor_id" attrs="{'invisible':[('royalty','!=',True)]}"
                                        groups="book_product.group_purchase_legal"
                                        help="The company which done the contract with the original"/>

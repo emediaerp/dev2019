@@ -9,7 +9,8 @@
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='classification']" position="after">
                     <field name="book_pricing" invisible="True"/>
-                    <page string="Pricing" name="pricing" attrs="{'invisible':[('book_specialized','!=',True)]}">
+                    <page string="Pricing" name="pricing"
+                          attrs="{'invisible':['|',('is_book','!=',True),('book_pricing','!=',True)]}">
                         <group>
                             <group string="Base Price">
                                 <field name="list_price" string="Sales Price" widget='monetary'
