@@ -68,6 +68,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='categ_id']" position="after">
+                    <field name="barcode" string="Barcode/ISBN" filter_domain="[('barcode','ilike',self)]"/>
                     <field name="publisher_id"/>
                     <field name="series_id"/>
                     <field name="type_id" string="Book Type"/>
