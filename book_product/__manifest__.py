@@ -11,7 +11,6 @@
  'version': '0.1',
  'depends': ['purchase','sale_management'],
  'data': [
-     'data/data.xml',
      'security/security.xml',
      'security/ir.model.access.csv',
      'views/company_views.xml',
