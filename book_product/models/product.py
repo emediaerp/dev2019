@@ -5,6 +5,18 @@ from odoo import tools, _
 
 
 class Product(models.Model):
+    _name = 'product.product'
+    _inherit = 'product.product'
+
+    @api.multi
+    def name_get(self):
+        # Prefetch the fields used by the `name_get`, so `browse` doesn't fetch other fields
+        self.read(['name', 'barcode'])
+        return [(template.id, '%s%s' % (template.barcode and '[%s] ' % template.barcode or '', template.name))
+                for template in self]
+
+
+class Product(models.Model):
     _name = 'product.template'
     _inherit = 'product.template'
 
@@ -17,7 +29,7 @@ class Product(models.Model):
 
     # Basic Information
     book_specialized = fields.Boolean(string="Book Specialized", related='company_id.book_specialized', store=True)
-    is_book = fields.Boolean(string="Is a Book",  )
+    is_book = fields.Boolean(string="Is a Book", )
     publisher_id = fields.Many2one(comodel_name="res.partner", string="Publisher", required=False, )
     level_id = fields.Many2one(comodel_name="book.product.level", string="Level", required=False, )
     series_id = fields.Many2one(comodel_name="book.product.series", string="Series", required=False, )
