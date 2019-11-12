@@ -11,8 +11,10 @@ class Product(models.Model):
     @api.multi
     def name_get(self):
         # Prefetch the fields used by the `name_get`, so `browse` doesn't fetch other fields
-        self.read(['name', 'barcode'])
-        return [(template.id, '%s%s' % (template.barcode and '[%s] ' % template.barcode or '', template.name))
+        self.read(['name', 'barcode', 'default_code'])
+        return [(template.id, '%s%s' % (
+            template.barcode and '[%s] ' % template.barcode or (
+                template.default_code and '[%s] ' % template.default_code or ''), template.name))
                 for template in self]
 
 
@@ -55,6 +57,8 @@ class Product(models.Model):
     @api.multi
     def name_get(self):
         # Prefetch the fields used by the `name_get`, so `browse` doesn't fetch other fields
-        self.read(['name', 'barcode'])
-        return [(template.id, '%s%s' % (template.barcode and '[%s] ' % template.barcode or '', template.name))
+        self.read(['name', 'barcode', 'default_code'])
+        return [(template.id, '%s%s' % (
+            template.barcode and '[%s] ' % template.barcode or (
+                template.default_code and '[%s] ' % template.default_code or ''), template.name))
                 for template in self]
